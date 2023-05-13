@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieSectionCell" id="2No-rT-Iso" customClass="MovieSectionCell" customModule="MovieBoxPro" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="516" height="885"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="IjW-bD-hhc">
+                <rect key="frame" x="0.0" y="0.0" width="516" height="885"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oCQ-Ff-2EL">
+                        <rect key="frame" x="0.0" y="0.0" width="516" height="885"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="poster1" translatesAutoresizingMaskIntoConstraints="NO" id="PLQ-Ej-5RV">
+                                <rect key="frame" x="0.0" y="0.0" width="516" height="796.66666666666663"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nj7-80-SfF">
+                                <rect key="frame" x="0.0" y="796.66666666666663" width="516" height="88.333333333333371"/>
+                                <string key="text">AmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdamAmsterdam</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" name="BrandLightPurple"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="oCQ-Ff-2EL" secondAttribute="bottom" id="0Ry-FP-1Ks"/>
+                    <constraint firstAttribute="trailing" secondItem="oCQ-Ff-2EL" secondAttribute="trailing" id="1j8-vZ-6nN"/>
+                    <constraint firstItem="PLQ-Ej-5RV" firstAttribute="height" secondItem="IjW-bD-hhc" secondAttribute="height" multiplier="0.9" id="CbZ-2r-fNp"/>
+                    <constraint firstItem="oCQ-Ff-2EL" firstAttribute="top" secondItem="IjW-bD-hhc" secondAttribute="top" id="cvw-fU-zLb"/>
+                    <constraint firstItem="oCQ-Ff-2EL" firstAttribute="leading" secondItem="IjW-bD-hhc" secondAttribute="leading" id="vTC-1B-zgC"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="516" height="885"/>
+            <connections>
+                <outlet property="movieImageView" destination="PLQ-Ej-5RV" id="rnQ-wB-9nl"/>
+                <outlet property="movieTitleLabel" destination="Nj7-80-SfF" id="Yai-Yl-SMp"/>
+            </connections>
+            <point key="canvasLocation" x="-158.46153846153845" y="-1010.5450236966824"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="poster1" width="184" height="273"/>
+        <namedColor name="BrandLightPurple">
+            <color red="0.84313725490196079" green="0.66274509803921566" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

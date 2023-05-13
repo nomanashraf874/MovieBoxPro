@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GenreSectionCell" id="Ovv-xZ-AlB" customClass="GenreSectionCell" customModule="MovieBoxPro" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="325" height="407"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="O0p-2I-eAh">
+                <rect key="frame" x="0.0" y="0.0" width="325" height="407"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OYl-2i-Yp6">
+                        <rect key="frame" x="0.0" y="0.0" width="325" height="407"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comedy" translatesAutoresizingMaskIntoConstraints="NO" id="pCC-Dr-yEv">
+                                <rect key="frame" x="0.0" y="0.0" width="325" height="392.66666666666669"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Cartoon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FD8-u7-ukl">
+                                <rect key="frame" x="0.0" y="392.66666666666669" width="325" height="14.333333333333314"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" name="BrandLightPurple"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vXW-b0-dvz" userLabel="ChosenView">
+                        <rect key="frame" x="8" y="0.0" width="309" height="309"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="vXW-b0-dvz" secondAttribute="height" multiplier="1:1" id="GmA-Ic-f6R"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                <size key="value" width="0.0" height="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R2P-o6-Zrk" userLabel="checkmarkImageView">
+                        <rect key="frame" x="207.66666666666666" y="1" width="117.33333333333334" height="116"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <imageReference key="image" image="checkmark.circle.fill" catalog="system" renderingMode="hierarchical">
+                            <hierarchicalColors>
+                                <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color red="0.16862745100000001" green="0.75294117650000003" blue="0.086274509799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color red="0.16862745100000001" green="0.75294117650000003" blue="0.086274509799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </hierarchicalColors>
+                        </imageReference>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vXW-b0-dvz" firstAttribute="top" secondItem="OYl-2i-Yp6" secondAttribute="top" id="1m6-0D-3qg"/>
+                    <constraint firstAttribute="bottom" secondItem="OYl-2i-Yp6" secondAttribute="bottom" id="4AU-2B-qpg"/>
+                    <constraint firstItem="vXW-b0-dvz" firstAttribute="trailing" secondItem="OYl-2i-Yp6" secondAttribute="trailing" constant="-8" id="6zf-Af-dmy"/>
+                    <constraint firstAttribute="trailing" secondItem="OYl-2i-Yp6" secondAttribute="trailing" id="7RB-mB-rEy"/>
+                    <constraint firstItem="vXW-b0-dvz" firstAttribute="leading" secondItem="OYl-2i-Yp6" secondAttribute="leading" constant="8" id="Rkf-ZS-58r"/>
+                    <constraint firstItem="R2P-o6-Zrk" firstAttribute="trailing" secondItem="OYl-2i-Yp6" secondAttribute="trailing" id="WHJ-Pi-aN7"/>
+                    <constraint firstItem="R2P-o6-Zrk" firstAttribute="height" secondItem="vXW-b0-dvz" secondAttribute="height" multiplier="0.38" id="qB0-cZ-foc"/>
+                    <constraint firstItem="OYl-2i-Yp6" firstAttribute="leading" secondItem="O0p-2I-eAh" secondAttribute="leading" id="qDy-ky-kde"/>
+                    <constraint firstItem="OYl-2i-Yp6" firstAttribute="top" secondItem="O0p-2I-eAh" secondAttribute="top" id="sOI-Kg-cZw"/>
+                    <constraint firstItem="R2P-o6-Zrk" firstAttribute="width" secondItem="vXW-b0-dvz" secondAttribute="width" multiplier="0.38" id="xVb-3M-vrz"/>
+                    <constraint firstItem="R2P-o6-Zrk" firstAttribute="top" secondItem="O0p-2I-eAh" secondAttribute="top" id="zky-ku-Wjl"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="325" height="407"/>
+            <connections>
+                <outlet property="chosenView" destination="vXW-b0-dvz" id="Mhm-Hw-abA"/>
+                <outlet property="cornerImageView" destination="R2P-o6-Zrk" id="wWY-59-a2G"/>
+                <outlet property="genreImageView" destination="pCC-Dr-yEv" id="74m-57-plm"/>
+                <outlet property="genreTitleLabel" destination="FD8-u7-ukl" id="9YM-x1-6c5"/>
+            </connections>
+            <point key="canvasLocation" x="439.23076923076923" y="49.407582938388622"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="comedy" width="512" height="512"/>
+        <namedColor name="BrandLightPurple">
+            <color red="0.84313725490196079" green="0.66274509803921566" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="300" id="TNC-me-pWo" customClass="MovieCell" customModule="MovieBoxPro" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TNC-me-pWo" id="pGZ-m9-LkG">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JI-3b-KQx">
+                        <rect key="frame" x="10" y="15" width="394" height="175"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tJK-pS-v9z" userLabel="Info View">
+                                <rect key="frame" x="137" y="30" width="249" height="115"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" showsExpansionTextWhenTruncated="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4G-40-z83">
+                                        <rect key="frame" x="0.0" y="0.0" width="249" height="38.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" name="BrandPurple"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Realease Date: 12/15/19" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QmL-fy-SGx">
+                                        <rect key="frame" x="0.0" y="38.333333333333329" width="249" height="38.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" name="BrandPurple"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apG-kc-vp1">
+                                        <rect key="frame" x="0.0" y="76.666666666666671" width="249" height="38.333333333333329"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqf-9q-PwM">
+                                                <rect key="frame" x="0.0" y="0.0" width="21.666666666666668" height="38.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" name="BrandPurple"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="BXP-kI-J30">
+                                                <rect key="frame" x="23.666666666666657" y="-0.33333333333333215" width="25" height="38"/>
+                                                <color key="tintColor" name="BrandPurple"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="zwJ-rk-aLs"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="BrandLightPurple"/>
+                                        <constraints>
+                                            <constraint firstItem="Cqf-9q-PwM" firstAttribute="leading" secondItem="apG-kc-vp1" secondAttribute="leading" id="3uy-zd-wAG"/>
+                                            <constraint firstItem="Cqf-9q-PwM" firstAttribute="top" secondItem="apG-kc-vp1" secondAttribute="top" id="4J9-eH-c24"/>
+                                            <constraint firstItem="Cqf-9q-PwM" firstAttribute="leading" secondItem="apG-kc-vp1" secondAttribute="leading" id="8VJ-tB-JuM"/>
+                                            <constraint firstItem="BXP-kI-J30" firstAttribute="leading" secondItem="Cqf-9q-PwM" secondAttribute="trailing" constant="2" id="E32-Sb-DPJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Cqf-9q-PwM" secondAttribute="bottom" id="GPw-Vs-5cH"/>
+                                            <constraint firstItem="BXP-kI-J30" firstAttribute="centerY" secondItem="Cqf-9q-PwM" secondAttribute="centerY" id="NCc-tf-eUP"/>
+                                            <constraint firstAttribute="bottom" secondItem="Cqf-9q-PwM" secondAttribute="bottom" id="RXv-xP-4D2"/>
+                                            <constraint firstItem="BXP-kI-J30" firstAttribute="top" secondItem="apG-kc-vp1" secondAttribute="top" constant="1.7763568394002505e-14" id="RpD-4I-fbT"/>
+                                            <constraint firstItem="Cqf-9q-PwM" firstAttribute="top" secondItem="apG-kc-vp1" secondAttribute="top" id="YMv-NI-lf2"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="D4G-40-z83" secondAttribute="trailing" id="IaV-dz-ooa"/>
+                                    <constraint firstItem="D4G-40-z83" firstAttribute="leading" secondItem="tJK-pS-v9z" secondAttribute="leading" id="YBA-kp-YyD"/>
+                                    <constraint firstItem="D4G-40-z83" firstAttribute="top" secondItem="tJK-pS-v9z" secondAttribute="top" id="ado-Ub-g65"/>
+                                </constraints>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poster1" translatesAutoresizingMaskIntoConstraints="NO" id="NXD-g8-UeO">
+                                <rect key="frame" x="7" y="-10" width="122" height="175"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="122" id="rFM-C6-gbc"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" name="BrandLightPurple"/>
+                        <constraints>
+                            <constraint firstItem="NXD-g8-UeO" firstAttribute="leading" secondItem="1JI-3b-KQx" secondAttribute="leading" constant="7" id="2Mp-Pj-xsm"/>
+                            <constraint firstItem="NXD-g8-UeO" firstAttribute="top" secondItem="1JI-3b-KQx" secondAttribute="top" constant="-10" id="JEz-xz-g68"/>
+                            <constraint firstAttribute="bottom" secondItem="NXD-g8-UeO" secondAttribute="bottom" constant="10" id="SGJ-AU-y4q"/>
+                            <constraint firstAttribute="bottom" secondItem="tJK-pS-v9z" secondAttribute="bottom" constant="30" id="ciZ-5R-amQ"/>
+                            <constraint firstItem="tJK-pS-v9z" firstAttribute="top" secondItem="1JI-3b-KQx" secondAttribute="top" constant="30" id="fWu-kr-TNI"/>
+                            <constraint firstAttribute="trailing" secondItem="tJK-pS-v9z" secondAttribute="trailing" constant="8" id="umc-JK-8PC"/>
+                            <constraint firstItem="tJK-pS-v9z" firstAttribute="leading" secondItem="NXD-g8-UeO" secondAttribute="trailing" constant="8" id="vfJ-dQ-y6U"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" name="BrandPurple"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="1JI-3b-KQx" secondAttribute="bottom" constant="10" id="JOA-pZ-lqR"/>
+                    <constraint firstAttribute="trailing" secondItem="1JI-3b-KQx" secondAttribute="trailing" constant="10" id="RML-IA-Jhd"/>
+                    <constraint firstItem="1JI-3b-KQx" firstAttribute="leading" secondItem="pGZ-m9-LkG" secondAttribute="leading" constant="10" id="fQB-e4-gmV"/>
+                    <constraint firstItem="1JI-3b-KQx" firstAttribute="top" secondItem="pGZ-m9-LkG" secondAttribute="top" constant="15" id="gvT-OR-63Q"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.21521905059999999" green="0.093044362960000002" blue="0.29234755039999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="Date" destination="QmL-fy-SGx" id="8wO-ZT-HBc"/>
+                <outlet property="cellView" destination="1JI-3b-KQx" id="SL3-vo-Qa3"/>
+                <outlet property="posterView" destination="NXD-g8-UeO" id="GAz-7M-7WU"/>
+                <outlet property="starLabel" destination="Cqf-9q-PwM" id="r8q-MU-nbg"/>
+                <outlet property="titleLabel" destination="D4G-40-z83" id="LXv-cX-335"/>
+            </connections>
+            <point key="canvasLocation" x="-224.42748091603053" y="-112.67605633802818"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="poster1" width="184" height="273"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <namedColor name="BrandLightPurple">
+            <color red="0.84313725490196079" green="0.66274509803921566" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="BrandPurple">
+            <color red="0.29411764705882354" green="0.0" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

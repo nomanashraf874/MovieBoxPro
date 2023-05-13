@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="100" id="KGk-i7-Jjw" customClass="CommentCell" customModule="MovieBoxPro" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="357" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="357" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1f-ti-Z79">
+                        <rect key="frame" x="105" y="10" width="232" height="80"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" name="BrandLightPurple"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5mu-RZ-1KM">
+                        <rect key="frame" x="10" y="10" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="HJ2-UP-vV6"/>
+                            <constraint firstAttribute="width" constant="80" id="ULj-pV-7sc"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="5mu-RZ-1KM" firstAttribute="top" secondItem="c1f-ti-Z79" secondAttribute="top" id="44R-gd-oJu"/>
+                    <constraint firstItem="c1f-ti-Z79" firstAttribute="leading" secondItem="5mu-RZ-1KM" secondAttribute="trailing" constant="15" id="CCo-1k-b61"/>
+                    <constraint firstAttribute="bottom" secondItem="5mu-RZ-1KM" secondAttribute="bottom" constant="10" id="Oqi-gU-cef"/>
+                    <constraint firstItem="c1f-ti-Z79" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="bxT-uY-JIn"/>
+                    <constraint firstItem="5mu-RZ-1KM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-10" id="c9k-pB-yWw"/>
+                    <constraint firstItem="5mu-RZ-1KM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uoE-6d-e98"/>
+                    <constraint firstItem="5mu-RZ-1KM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yWd-6A-CYA"/>
+                    <constraint firstItem="5mu-RZ-1KM" firstAttribute="bottom" secondItem="c1f-ti-Z79" secondAttribute="bottom" id="zwI-lQ-vjw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" name="BrandPurple"/>
+            <connections>
+                <outlet property="commentLabel" destination="c1f-ti-Z79" id="lnU-xN-OHd"/>
+                <outlet property="profileImage" destination="5mu-RZ-1KM" id="AV9-DK-cLK"/>
+            </connections>
+            <point key="canvasLocation" x="129.00763358778624" y="53.521126760563384"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="BrandLightPurple">
+            <color red="0.84313725490196079" green="0.66274509803921566" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="BrandPurple">
+            <color red="0.29411764705882354" green="0.0" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
