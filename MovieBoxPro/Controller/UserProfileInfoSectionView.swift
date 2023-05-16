@@ -44,7 +44,8 @@ class UserProfileInfoSectionView: UIView {
         self.myEmail=myEmail
         self.viewEmail=viewEmail
         if viewEmail==myEmail || viewEmail == "" {
-            followButton.isEnabled=false
+            print("\(viewEmail) and \(myEmail)")
+            followButton.isHidden = true
             print("IN 1")
         }
         else{
@@ -59,6 +60,7 @@ class UserProfileInfoSectionView: UIView {
                         self.followButton.isEnabled=false
                         print("IN 2")
                     } else{
+                        self.followButton.isHidden=false
                         print("Not Following")
                     }
                 }
@@ -97,15 +99,14 @@ class UserProfileInfoSectionView: UIView {
     }
     
     @IBAction func followButtonPressed(_ sender: Any) {
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 2.0, animations: {
             self.followButton.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
             }, completion: { _ in
                 UIView.animate(withDuration: 0.6) {
                     self.followButton.transform = CGAffineTransform.identity
                 }
+                self.followButton.isHidden = true
         })
-        self.followButton.setTitle("Following", for: .normal)
-        followButton.isEnabled=false
         DatabaseManager.base.addFreind(email: myEmail, otherEmail: viewEmail)
     }
     

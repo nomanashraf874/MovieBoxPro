@@ -36,7 +36,7 @@ Future Reference:
 Database Setup
 //Email
     //email
-        //username Strinf
+        //username String
         //freinds [Strings]
         //liked [Strings]
         //Preferences[String]
@@ -49,14 +49,6 @@ Database Setup
                 //likes INT
                 //commented INT
                 //intial bool
-            //action
-                //likes=0
-                //commented=0
-                //intial=false
-            //horror
-                //likes=2
-                //commented=3
-                //intial=true
 Comments
   //Movie 1
     //comment[Comment]
@@ -388,7 +380,7 @@ class DatabaseManager {
                         pref[genre] = score
                     }
                     let top3Keys = pref.sorted { $0.value > $1.value } // Sort the dictionary by descending order of values
-                        .prefix(3) // Take the first 3 key-value pairs
+                        .prefix(4) // Take the first 3 key-value pairs
                         .map { $0.key } // Extract the keys from the key-value pairs
 
                     self.db.collection("Email").document(email).updateData([

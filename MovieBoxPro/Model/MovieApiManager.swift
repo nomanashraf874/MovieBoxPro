@@ -41,10 +41,12 @@ struct MovieApiManager{
     }
     var delegate: MovieApiManagerDelegate?
     
-    func getSearchResult(query: String){
-        let urlString="https://api.themoviedb.org/3/search/movie\(apiKey)&language=en-US&query=\(query)"
+    func getSearchResult(query: String) {
+        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let urlString = "https://api.themoviedb.org/3/search/movie\(apiKey)&language=en-US&query=\(encodedQuery)"
         performSearch(with: urlString)
     }
+
     func performSearch(with urlString: String)
     {
         //print(urlString)
@@ -158,7 +160,7 @@ struct MovieApiManager{
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                     let trailers = dataDictionary["results"] as! [[String:Any]]
                     let trailer = trailers[0]
-                    let key = trailer["key"] as! String
+                    let key = trailer["key"] as? String ?? ""
                     completionHandler(key)
                 }
             }

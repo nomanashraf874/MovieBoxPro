@@ -134,39 +134,51 @@ class UserActivitySectionViewController: UIViewController {
                 }
             }
         case .userComments:
-            if email == (UserDefaults.standard.value(forKey: "email") as? String)!{
-                let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-                // Create a fetch request for the CommentEntity entity
-                let fetchRequest: NSFetchRequest<CommentEntity> = CommentEntity.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "email == %@", email)
-                // Execute the fetch request and get the results
-                do {
-                    let comments = try context.fetch(fetchRequest)
-                    for comment in comments {
-                        print("Movie: \(comment.movieName ?? "Unknown"), Content: \(comment.content ?? "No content")")
-                        let content = comment.content ?? "No content"
-                        let title=comment.movieName ?? "Unknown"
+//            if email == (UserDefaults.standard.value(forKey: "email") as? String)!{
+//                let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//
+//                // Create a fetch request for the CommentEntity entity
+//                let fetchRequest: NSFetchRequest<CommentEntity> = CommentEntity.fetchRequest()
+//                fetchRequest.predicate = NSPredicate(format: "email == %@", email)
+//                // Execute the fetch request and get the results
+//                do {
+//                    let comments = try context.fetch(fetchRequest)
+//                    for comment in comments {
+//                        print("Movie: \(comment.movieName ?? "Unknown"), Content: \(comment.content ?? "No content")")
+//                        let content = comment.content ?? "No content"
+//                        let title=comment.movieName ?? "Unknown"
+//                        self.commentData.append(commentType(content: content, movieName: title))
+//                    }
+//                } catch {
+//                    print("Error fetching comments: \(error.localizedDescription)")
+//                }
+//            }
+//            else{
+//                DatabaseManager.base.getCommented(email: email) { result in
+//                    switch result{
+//                        case .success(let comments):
+//                            for comment in comments{
+//                                let content = comment["content"] as! String
+//                                let title=comment["title"] as! String
+//                                self.commentData.append(commentType(content: content, movieName: title))
+//                            }
+//
+//                        default:
+//                            print("ERROR 4")
+//
+//                        }
+//                }
+//            }
+            DatabaseManager.base.getCommented(email: email) { result in
+                switch result{
+                case .success(let comments):
+                    for comment in comments{
+                        let content = comment["content"] as! String
+                        let title=comment["title"] as! String
                         self.commentData.append(commentType(content: content, movieName: title))
                     }
-                } catch {
-                    print("Error fetching comments: \(error.localizedDescription)")
-                }
-            }
-            else{
-                DatabaseManager.base.getCommented(email: email) { result in
-                    switch result{
-                        case .success(let comments):
-                            for comment in comments{
-                                let content = comment["content"] as! String
-                                let title=comment["title"] as! String
-                                self.commentData.append(commentType(content: content, movieName: title))
-                            }
-                
-                        default:
-                            print("ERROR 4")
-                
-                        }
+                default:
+                    ("ERROR 4")
                 }
             }
         case .popular:

@@ -13,6 +13,7 @@ class CommentViewController: UITableViewController {
     @IBOutlet var commentTableView: UITableView!
     let email = (UserDefaults.standard.value(forKey: "email") as? String)!
     var movie : [String:Any] = [:]
+    var imageCache = NSCache<NSString, UIImage>()
     @IBOutlet var commentTextField: UITextField!
     var comments = [[String:Any]]()
     //var delegate:SegueHandler?
@@ -28,23 +29,27 @@ class CommentViewController: UITableViewController {
         // Add an observer for keyboard will show/hide notification
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        commentTextField.attributedPlaceholder = NSAttributedString(string: "Comment", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BrandLightPurple")?.withAlphaComponent(0.5) ?? UIColor.gray])
 
     }
-    func loadComments(){
+    func loadComments() {
         DatabaseManager.base.getComments(movie: movie["title"] as! String) { result in
-            switch result{
+            switch result {
             case .success(let res):
-                self.comments=res.reversed()
-                DispatchQueue.main.async {
-                    self.commentTableView.reloadData()
+                DispatchQueue.global(qos: .background).async {
+                    let reversedComments = res.reversed()
+                    DispatchQueue.main.async {
+                        self.comments = Array(reversedComments)
+                        self.commentTableView.reloadData()
+                    }
                 }
             case .failure(let err):
                 self.comments = []
                 print(err)
-                
             }
         }
     }
+    
 
     func saveComment(){
         do {
@@ -66,7 +71,7 @@ class CommentViewController: UITableViewController {
         }
 
         let keyboardHeight = keyboardFrame.height
-        let offsetY = commentTextField.frame.maxY - 30 - view.safeAreaInsets.bottom
+        let offsetY = commentTextField.frame.maxY - 33 - view.safeAreaInsets.bottom
         let delta = max(offsetY + keyboardHeight - originalFrame!.height, 0)
 
         UIView.animate(withDuration: duration) {
@@ -97,24 +102,37 @@ extension CommentViewController{
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
-        let email = comments[indexPath.row]["email"] as! String
-        let comment = comments[indexPath.row]["content"] as! String
-        let imageFile = "profileImages/"+email+"_profilePicture.png"
-        StorageMangager.base.getURL(for: imageFile) { url in
-            ImageDownloader.downloadImage("\(url)") {
-                image, urlString in
-                if let imageObject = image {
-                    // performing UI operation on main thread
-                    DispatchQueue.main.async {
-                        cell.profileImage.image = imageObject
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
+            let email = comments[indexPath.row]["email"] as! String
+            let comment = comments[indexPath.row]["content"] as! String
+            let imageFile = "profileImages/"+email+"_profilePicture.png"
+
+            if let cachedImage = imageCache.object(forKey: imageFile as NSString) {
+                cell.profileImage.image = cachedImage
+            } else {
+                cell.profileImage.image = nil
+
+                StorageMangager.base.getURL(for: imageFile) { url in
+                    ImageDownloader.downloadImage("\(url)") { image, urlString in
+                        if let imageObject = image {
+                            // Store the downloaded image in the cache
+                            self.imageCache.setObject(imageObject, forKey: imageFile as NSString)
+
+                            // Perform UI operations on the main thread
+                            DispatchQueue.main.async {
+                                // Check if the cell is still visible for the corresponding index path
+                                if let cellToUpdate = tableView.cellForRow(at: indexPath) as? CommentCell {
+                                    cellToUpdate.profileImage.image = imageObject
+                                }
+                            }
+                        }
                     }
                 }
             }
+
+            cell.commentLabel.text = comment
+            return cell
         }
-        cell.commentLabel.text = comment
-        return cell
-    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CommentCell
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -137,7 +155,7 @@ extension CommentViewController:UITextFieldDelegate{
         newComment.content = textField.text!
         newComment.movieName = movie["title"] as? String ?? ""
         newComment.email = email
-        self.saveComment()
+        //self.saveComment()
         //print(comments)
         return true
     }

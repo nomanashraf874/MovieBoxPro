@@ -13,6 +13,8 @@ class UserProfileViewController: UIViewController {
         return true
     }
     // MARK: Views
+    
+    @IBOutlet weak var signoutButton: UIButton!
     @IBOutlet weak var wallpaperImageView: UIImageView!
     @IBOutlet weak var userInfoSectionView: UserProfileInfoSectionView!
     @IBOutlet weak var userActivityView: UIView!
@@ -32,6 +34,10 @@ class UserProfileViewController: UIViewController {
         super.viewDidAppear(animated)
         userInfoSectionView.setupViews(myEmail: myEmail, viewEmail: viewEmail)
         setUpUIViews(email:viewEmail == "" ? myEmail : viewEmail)
+        if viewEmail != ""{
+            signoutButton.isHidden=true
+        }
+        
     }
     
     // MARK: Actions

@@ -33,6 +33,9 @@ class RegisterViewController: UIViewController {
         profileImage.layer.cornerRadius = profileImage.frame.size.width/2
         profileImage.layer.masksToBounds = true
         passwordText.delegate=self
+        passwordText.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BrandPurple")?.withAlphaComponent(0.2) ?? UIColor.gray])
+        userText.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BrandPurple")?.withAlphaComponent(0.2) ?? UIColor.gray])
+        emailText.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BrandPurple")?.withAlphaComponent(0.2) ?? UIColor.gray])
         userText.delegate=self
         emailText.delegate=self
     }
