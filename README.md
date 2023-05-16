@@ -1,7 +1,7 @@
 # MovieBoxPro
 Movie Box is a social movie recommendation app designed to enhance your movie-watching experience. Discover personalized movie recommendations based on your interactions within the app, including survey, comments, likes, and following. Connect with fellow movie enthusiasts and explore a community of users who share your passion for films. Enjoy a tailored recommendation system and engage in social interactions that revolve around the love of movies!
 
-![fin](https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/4874a622-873c-4aec-822b-e0ea51f9d40d)
+![fin](https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/2ecc096d-5e8e-46df-9a6d-c9ae051705de)
 
 ## User Stories
 - [x] User can Register
@@ -56,40 +56,40 @@ Database Schema:
     - comment: [Comment]
 
 ## Welcome screen
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/7a93dc55-323f-40be-8a5e-4dea0e12d595
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/2c0574a4-a5b6-4107-89af-b20847a4d932
 
 ## Register
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/24f9113e-2afd-4b9b-8a61-ac69c0b8fcae
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/f34974e3-a088-4577-a392-a174ce55b0dc
 
 ## Login
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/6a2a1e0b-7997-4cfa-b982-f0c3725481be
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/7ae830ed-fbbf-447b-a7ab-900df806b36b
 
 ## Survey
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/e040aa4b-4c63-4b61-82ed-ae6edd827dad
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/a8e177ee-30a1-4dce-91fc-8a600796bf4b
 
 ## Recommendations
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/b12961c4-c12c-498f-bac2-cf50432e05e5
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/b0889c9e-8b15-47aa-9b72-49114d379e14
 
 ## Search
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/52408e08-d587-418f-933e-4b586570e117
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/adaebab7-e561-41c6-917c-041b117da04d
 
 ## Explore
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/a5b4cab5-223d-4b93-9a9a-59a26291cec2
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/a4fb3f5f-31aa-428d-ae9e-222c09e048d9
 
 ## Movie Details
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/e6a5351b-1667-4cdf-9a91-27a79c86433d
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/80cd7e82-9146-477c-aeb7-bfe8f2a015f6
 
 ## Comment
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/0bde0bb0-3b09-425d-a473-6c2fa85e7986
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/0d226404-c19d-40f5-81d0-55964f631ac9
 
 ## Like
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/b7204f48-a451-4b17-9a50-21a4ae878952
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/0fc9101a-00fc-46d1-b202-9ae126a80f5a
 
 ## Trailer
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/2a63dadf-6374-42f3-b453-e225a87d4993
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/ccf455b4-5cac-42f8-bdfb-e7f055342d33
 
 ## Follow
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/d02491d2-f3e8-491a-a104-cbf39ac378f0
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/011beb6c-b180-4905-8ce8-08e3798b2dcc
 
 ## Profile and Logout
-https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/fca87414-0a93-47f1-9e6f-24d5fe771998
+https://github.com/nomanashraf874/MovieBoxPro/assets/73111863/ae7e0b04-9cf0-4dfd-a2a3-7e2e810192f1
