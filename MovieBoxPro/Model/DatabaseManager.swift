@@ -9,92 +9,20 @@ import Foundation
  
 import FirebaseFirestore
  
-/*sociall aspect{
- -huge database filled with movies x
- -Comments
- -new ideas:x
-  movie groups?
-  movie feed?
-  no social aspect->small proj
-}
-collection -> documents
-documents -> collections/data
-Future Reference:
- Firestore-root
-    |
-    --- USERTABLE (collection)
-          |
-          --- uid (document)
-               |
-               --- AMISCOLLECTION (collection)
-                      |
-                      --- uid (document)
-                           |
-                           --- fieldName: "StringValue"
- 
-     
-Database Setup
-//Email
-    //email
-        //username String
-        //freinds [Strings]
-        //liked [Strings]
-        //Preferences[String]
-        //Intiliazed[String]
-        //commented[String]
-        //LikeCount INT
-        //CommentCount INT
-        //User Preferences:
-            //genre
-                //likes INT
-                //commented INT
-                //intial bool
-Comments
-  //Movie 1
-    //comment[Comment]
-
- Formula:
- -liked 25
- -commented 25
- -survey 25
- -folowing 25
-  Result:top 3 genres
-*/
- 
 class DatabaseManager {
+    
     static let base = DatabaseManager()
     private let db = Firestore.firestore()
-    // inserts user to database
     let genres = ["\(28)","\(12)","\(16)","\(35)","\(80)","\(99)","\(18)","\(10751)","\(14)","\(36)","\(27)","\(10402)","\(9648)","\(10749)","\(878)","\(10770)","\(53)","\(10752)","\(37)"]
+    
     public func usernameToData(with user: User)
     {
         db.collection("Email").document(user.email).setData([
             "Username": user.username
         ])
         initializeUserGenres(with: user.email)
-        //User defauls
     }
-    /*
-     action          28
-     Adventure       12
-     Animation       16
-     Comedy          35
-     Crime           80
-     Documentary     99
-     Drama           18
-     Family          10751
-     Fantasy         14
-     History         36
-     Horror          27
-     Music           10402
-     Mystery         9648
-     Romance         10749
-     Science Fiction 878
-     TV Movie        10770
-     Thriller        53
-     War             10752
-     Western         37
-     */
+    
     public func initializeUserGenres(with email: String){
         let prefRef = db.collection("Email").document(email).collection("UserPrefrences")
         for genre in genres{
@@ -115,8 +43,8 @@ class DatabaseManager {
             "TotalComments":0,
             "TotalLikes":0
         ])
-        
     }
+    
     func getName(email:String,completionHandler: @escaping((String)->Void)){
         let docRef = db.collection("Email").document(email)
         var ret = ""
@@ -125,10 +53,11 @@ class DatabaseManager {
                 ret=document.data()?["Username"] as? String ?? " "
                 completionHandler(ret)
             } else {
-                print("ERROR2")
+                print("ERROR:\(error)")
             }
         }
     }
+    
     public func addLike(email: String,movie:  [String : Any]){
         guard let genres = movie["genre_ids"] as? [Any] else{
             return
@@ -146,10 +75,8 @@ class DatabaseManager {
         db.collection("Email").document(email).updateData([
             "Liked": FieldValue.arrayUnion([movie])
         ])
-        
-        //incrament like by 1
-        //add like movie
     }
+    
     public func addComment(email: String,content:String, movie:  [String : Any], completionHandler: @escaping(Bool)->Void){
         guard let genres = movie["genre_ids"] as? [Any] else{
             return
@@ -192,6 +119,7 @@ class DatabaseManager {
             "TotalComments": FieldValue.increment(Int64(1))
         ])
     }
+    
     public func addInitialize(with email: String,genres: [String]){
         for genre in genres{
             let docRef=db.collection("Email").document(email).collection("UserPrefrences").document(genre)
@@ -203,8 +131,8 @@ class DatabaseManager {
             "Initialized": FieldValue.arrayUnion(genres),
             "Preferences": FieldValue.arrayUnion(genres)
         ])
-        //initialize == true
     }
+    
     public func verifyLike(email: String, movie: [String: Any], completionHandler: @escaping (Result<Bool, Error>) -> Void) {
         let docRef = db.collection("Email").document(email)
         docRef.getDocument { (document, error) in
@@ -222,14 +150,13 @@ class DatabaseManager {
                 }
                 return title == movie["title"] as? String
             }) {
-                print("Y")
                 completionHandler(.success(true))
             } else {
-                print("N")
                 completionHandler(.success(false))
             }
         }
     }
+    
     public func verifyFollow(followerEmail: String, followingEmail: String, completionHandler: @escaping(Result<Bool, Error>)->Void) {
         let docRef = db.collection("Email").document(followerEmail)
         docRef.getDocument() { (document, error) in
@@ -241,12 +168,9 @@ class DatabaseManager {
                 completionHandler(.success(false))
                 return
             }
-            print(document.data()?["Freinds"])
             if let following = document.data()?["Freinds"] as? [String], following.contains(followingEmail) {
-                print("YOOOO")
                 completionHandler(.success(true))
             } else {
-                print("YOOOO2")
                 completionHandler(.success(false))
             }
         }
@@ -259,11 +183,15 @@ class DatabaseManager {
             if let document = document, document.exists {
                 ret = document.data()!["Comments"] as! [[String: Any]]
                 completionHandler(.success(ret))
-            } else {
-                print("Document does not exist")
+            } else if let error = error {
+                completionHandler(.failure(error))
+            }
+            else{
+                print("Unknown Error in getComments")
             }
         }
     }
+    
     public func getLiked(email:String, completionHandler: @escaping(Result<[[String: Any]], Error>)->Void){
         var ret = [[String: Any]]()
         let docRef = db.collection("Email").document(email)
@@ -271,11 +199,15 @@ class DatabaseManager {
             if let document = document, document.exists {
                 ret = document.data()!["Liked"] as! [[String: Any]]
                 completionHandler(.success(ret))
-            } else {
-                print("Document does not exist")
+            } else if let error = error {
+                completionHandler(.failure(error))
+            }
+            else{
+                print("Unknown Error in getLiked")
             }
         }
     }
+    
     public func getCommented(email:String, completionHandler: @escaping(Result<[[String: Any]], Error>)->Void){
         var ret = [[String: Any]]()
         let docRef = db.collection("Email").document(email)
@@ -283,11 +215,15 @@ class DatabaseManager {
             if let document = document, document.exists {
                 ret = document.data()!["Commented"] as! [[String: Any]]
                 completionHandler(.success(ret))
-            } else {
-                print("Document does not exist")
+            } else if let error = error {
+                completionHandler(.failure(error))
+            }
+            else{
+                print("Unknown Error in getCommented")
             }
         }
     }
+    
     public func addFreind(email: String, otherEmail:String){
         let docRef = db.collection("Email").document(email)
         docRef.getDocument { (document, error) in
@@ -295,12 +231,16 @@ class DatabaseManager {
                 docRef.updateData([
                     "Freinds": FieldValue.arrayUnion([otherEmail])
                 ])
-            } else{
-                print("ERROR")
+            } else if let error = error {
+                print("Error:\(error)")
+            }
+            else{
+                print("Unknown Error in addFreind")
             }
         }
     }
-    public func getFreinds(email: String, completionHandler: @escaping(([String],Int,Int))->Void){
+    
+    public func getProfile(email: String, completionHandler: @escaping(([String],Int,Int))->Void){
         let docRef = db.collection("Email").document(email)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -308,11 +248,15 @@ class DatabaseManager {
                 let totalComments = document.data()?["TotalComments"] as? Int ?? 0
                 let totalLikes = document.data()?["TotalLikes"] as? Int ?? 0
                 completionHandler((ret,totalComments,totalLikes))
-            } else {
-                print("Document does not exist")
+            } else if let error = error {
+                print("Error:\(error)")
+            }
+            else{
+                print("Unknown Error in getProfile")
             }
         }
     }
+    
     public func getInitialized(email: String, completionHandler: @escaping(Result<[String], Error>)->Void){
         var ret = [String]()
         let docRef = db.collection("Email").document(email)
@@ -320,23 +264,31 @@ class DatabaseManager {
             if let document = document, document.exists {
                 ret = document.data()!["Initialized"] as! [String]
                 completionHandler(.success(ret))
-            } else {
-                print("Document does not exist")
+            } else if let error = error {
+                print("Error:\(error)")
+            }
+            else{
+                print("Unknown Error in getInitialized")
             }
         }
     }
+    
     public func getPreferences(email: String, completion: @escaping([String])->Void){
         let docRef = db.collection("Email").document(email)
             docRef.getDocument { (document, error) in
                 if let document = document, document.exists {
                     let preferences = document.data()?["Preferences"] as? [String] ?? []
                     completion(preferences)
-                } else {
-                    print("Document does not exist")
+                } else if let error = error {
                     completion([])
+                    print("Error:\(error)")
+                }
+                else{
+                    print("Unknown Error in getPreferences")
                 }
             }
     }
+    
     public func getUserPreferences(email: String, completion: @escaping([String: [String: Any]])->Void){
         let docRef = db.collection("Email").document(email).collection("UserPrefrences")
         docRef.getDocuments { querySnapshot, error in
@@ -352,13 +304,14 @@ class DatabaseManager {
             }
         }
     }
+    
     public func getRecommendation(email: String){
         var freindPreferences: [String:Int] = [:]
         let group = DispatchGroup()
         for genre in genres {
             freindPreferences[genre] = 0
         }
-        getFreinds(email: email) { (freinds,totalComments,totalLikes) in
+        getProfile(email: email) { (freinds,totalComments,totalLikes) in
             for freind in freinds{
                 group.enter()
                 self.getPreferences(email: freind) { freindPreference in
@@ -379,9 +332,9 @@ class DatabaseManager {
                         let score = initialized + freindsPref + likePref + commentPref
                         pref[genre] = score
                     }
-                    let top3Keys = pref.sorted { $0.value > $1.value } // Sort the dictionary by descending order of values
-                        .prefix(4) // Take the first 3 key-value pairs
-                        .map { $0.key } // Extract the keys from the key-value pairs
+                    let top3Keys = pref.sorted { $0.value > $1.value }
+                        .prefix(4)
+                        .map { $0.key }
 
                     self.db.collection("Email").document(email).updateData([
                         "Preferences": top3Keys

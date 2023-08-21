@@ -27,6 +27,7 @@ class GenresSurveyViewController: UIViewController, GenreSectionManager {
         setupViews()
         
     }
+    
     @IBAction func continueButton(_ sender: Any) {
         var arr: [String] = []
         for genre in chosenGenres{

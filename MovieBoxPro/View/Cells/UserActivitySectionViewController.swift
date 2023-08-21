@@ -62,12 +62,12 @@ class UserActivitySectionViewController: UIViewController {
         self.id = nil
         super.init(nibName: "UserActivitySectionViewController", bundle: Bundle.main)
     }
+    
     init(sectionType: UserActivitySectionType, id: Int) {
         self.sectionType = sectionType
         self.id = id
         super.init(nibName: "UserActivitySectionViewController", bundle: Bundle.main)
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -112,8 +112,8 @@ class UserActivitySectionViewController: UIViewController {
                     for genre in genres{
                         self.genreData.append(MovieGenreType(rawValue: self.GenreValue(genre))!)
                     }
-                default:
-                    print("ERROR 3")
+                case .failure(let err):
+                    print("ERROR: \(err)")
                     
                 }
             }
@@ -128,47 +128,12 @@ class UserActivitySectionViewController: UIViewController {
                         self.movieData.append(MovieViewModel(title: title, ImageURL: posterPath))
                     }
 
-                default:
-                    print("ERROR 4")
+                case .failure(let err):
+                    print("ERROR: \(err)")
 
                 }
             }
         case .userComments:
-//            if email == (UserDefaults.standard.value(forKey: "email") as? String)!{
-//                let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//
-//                // Create a fetch request for the CommentEntity entity
-//                let fetchRequest: NSFetchRequest<CommentEntity> = CommentEntity.fetchRequest()
-//                fetchRequest.predicate = NSPredicate(format: "email == %@", email)
-//                // Execute the fetch request and get the results
-//                do {
-//                    let comments = try context.fetch(fetchRequest)
-//                    for comment in comments {
-//                        print("Movie: \(comment.movieName ?? "Unknown"), Content: \(comment.content ?? "No content")")
-//                        let content = comment.content ?? "No content"
-//                        let title=comment.movieName ?? "Unknown"
-//                        self.commentData.append(commentType(content: content, movieName: title))
-//                    }
-//                } catch {
-//                    print("Error fetching comments: \(error.localizedDescription)")
-//                }
-//            }
-//            else{
-//                DatabaseManager.base.getCommented(email: email) { result in
-//                    switch result{
-//                        case .success(let comments):
-//                            for comment in comments{
-//                                let content = comment["content"] as! String
-//                                let title=comment["title"] as! String
-//                                self.commentData.append(commentType(content: content, movieName: title))
-//                            }
-//
-//                        default:
-//                            print("ERROR 4")
-//
-//                        }
-//                }
-//            }
             DatabaseManager.base.getCommented(email: email) { result in
                 switch result{
                 case .success(let comments):
@@ -177,8 +142,8 @@ class UserActivitySectionViewController: UIViewController {
                         let title=comment["title"] as! String
                         self.commentData.append(commentType(content: content, movieName: title))
                     }
-                default:
-                    ("ERROR 4")
+                case .failure(let err):
+                    print("ERROR: \(err)")
                 }
             }
         case .popular:
@@ -268,8 +233,6 @@ class UserActivitySectionViewController: UIViewController {
     
     
 }
-
-
 
 // MARK: - UICollectionView Delegate / DataSource / DelegateFlowLayout
 extension UserActivitySectionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

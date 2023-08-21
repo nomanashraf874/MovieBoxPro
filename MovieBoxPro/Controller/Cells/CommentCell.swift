@@ -14,7 +14,6 @@ class CommentCell: UITableViewCell {
     @IBOutlet var commentLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         let shorterSide = min(profileImage.layer.frame.width, profileImage.layer.frame.height)
         profileImage.layer.cornerRadius = shorterSide / 2
         profileImage.layer.masksToBounds = true
@@ -23,8 +22,6 @@ class CommentCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

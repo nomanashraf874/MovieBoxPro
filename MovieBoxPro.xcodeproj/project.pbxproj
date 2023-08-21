@@ -211,7 +211,6 @@
 				95599FF129E32F140019443C /* CommentSectionCell.xib */,
 				95599FFB29E359690019443C /* UserProfileInfoSectionView.xib */,
 				955EB34429DB635200160A5E /* UserActivitySectionViewController.xib */,
-				95E5056F29DA0D8A0067D6D5 /* GenreSectionCell.swift */,
 				95AABC9029F75DEA0054D89A /* CommentCell.xib */,
 			);
 			path = Cells;
@@ -222,6 +221,7 @@
 			children = (
 				95AABC8F29F75DEA0054D89A /* CommentCell.swift */,
 				955EB34B29DC9EDC00160A5E /* MovieCell.swift */,
+				95E5056F29DA0D8A0067D6D5 /* GenreSectionCell.swift */,
 				95599FF029E32F140019443C /* CommentSectionCell.swift */,
 				95599FEA29E32C750019443C /* MovieSectionCell.swift */,
 			);

@@ -7,6 +7,7 @@
 import UIKit
 
 class ImageDownloader {
+    
     static func downloadImage(_ urlString: String, completion: ((_ image: UIImage?, _ urlString: String?) -> ())?) {
        guard let url = URL(string: urlString) else {
           completion?(nil, urlString)

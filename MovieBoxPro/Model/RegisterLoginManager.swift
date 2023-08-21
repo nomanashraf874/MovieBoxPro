@@ -26,7 +26,6 @@ class RegisterLoginManager{
                         UserDefaults.standard.set(url, forKey: "profilePicture")
                     }
                 }
-//                self.databaseTests()
                 completionHandler(.success(true))
             }
         }
@@ -40,64 +39,7 @@ class RegisterLoginManager{
             } else{
                 UserDefaults.standard.set(email, forKey: "email")
                 completionHandler(.success(true))
-                //self.databaseTests()
             }
         }
-    }
-    func databaseTests(){
-        let email = "testc@gmail.com"
-//        let genres = ["28","12","16"]
-//        let movie:[String:Any]=["genre_ids":genres,"title":"Rocky"]
-//        DatabaseManager.base.addLike(email: email, movie: movie)
-//        DatabaseManager.base.addComment(email: email, content: "Testing", movie: movie)
-//        DatabaseManager.base.addFreind(email: email, otherEmail: "Testing@gmail.com")
-//        DatabaseManager.base.addInitialize(with: email, genres: genres)
-////        DatabaseManager.base.getFreinds(email: email) { result in
-////            switch result{
-////            case .success(let res):
-////                print(res)
-////            case .failure(let err):
-////                print(err)
-////            }
-////        }
-//        DatabaseManager.base.getCommented(email: email) { result in
-//            switch result{
-//            case .success(let res):
-//                print(res)
-//            case .failure(let err):
-//                print(err)
-//            }
-//        }
-//        DatabaseManager.base.getLiked(email: email) { result in
-//            switch result{
-//            case .success(let res):
-//                print(res)
-//            case .failure(let err):
-//                print(err)
-//            }
-//        }
-//        DatabaseManager.base.getInitialized(email: email) { result in
-//            switch result{
-//            case .success(let res):
-//                print(res)
-//            case .failure(let err):
-//                print(err)
-//            }
-//        }
-//        DatabaseManager.base.getComments(movie: movie["title"] as! String) { result in
-//            switch result{
-//            case .success(let res):
-//                print(res)
-//            case .failure(let err):
-//                print(err)
-//            }
-//        }
-//        DatabaseManager.base.getPreferences(email: email) { res in
-//            print("preferences: \(res)")
-//        }
-//        DatabaseManager.base.getUserPreferences(email: email) { ret in
-//            print(ret)
-//        }
-        DatabaseManager.base.getRecommendation(email: email)
     }
 }

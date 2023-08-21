@@ -16,13 +16,13 @@ class MoviesViewController: UIViewController {
     var originalMovies = [[String:Any]]()
     var movieApiManager = MovieApiManager()
     var userPreference: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UINib(nibName: "MovieCell", bundle: nil), forCellReuseIdentifier: "MovieCell")
         tableView.dataSource = self
         tableView.delegate = self
         movieApiManager.delegate=self
-       // movieApiManager.getNowPlaying()
         DatabaseManager.base.getRecommendation(email: email)
         DatabaseManager.base.getPreferences(email: email) { res in
             self.movieApiManager.getMoviesByGenres(genres: res)
@@ -31,8 +31,6 @@ class MoviesViewController: UIViewController {
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         let brandLightPurple = UIColor(named: "BrandLightPurple")!
-
-        // Set the cancel button color
         searchController.searchBar.tintColor = brandLightPurple
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.textColor = brandLightPurple
@@ -51,20 +49,13 @@ class MoviesViewController: UIViewController {
         }
     }
 // MARK: - Navigation
-
-    //In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            // Get the new view controller using segue.destination.
-            // Pass the selected object to the new view controller.
-        print("Loading up the details screen")
-
         let cell = sender as! MovieCell
         let indexPath = tableView.indexPath(for:cell)!
         let movie = movies[indexPath.row]
-
         let detailsViewController = segue.destination as! MovieDetailsViewController
             detailsViewController.movie = movie
-
         tableView.deselectRow(at: indexPath, animated: true)
 
     }
@@ -91,9 +82,6 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate{
         let title = movie["title"] as! String
         let starCount = movie["vote_average"] as! Double
         let rd = movie["release_date"] as? String ?? "Incoming"
-        
-        //let synopsis = movie["overview"] as! String
-        //let Xid = movie["id"]  as! String
         cell.titleLabel.text = title
         cell.starLabel.text="\(Double(round(10 * (starCount/2)) / 10))"
         cell.Date.text="Release Date: \(rd)"
@@ -105,7 +93,6 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate{
         ImageDownloader.downloadImage(posterUrl) {
             image, urlString in
             if let imageObject = image {
-                // performing UI operation on main thread
                 DispatchQueue.main.async {
                     cell.posterView.image = imageObject
                 }
@@ -114,6 +101,7 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate{
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! MovieCell
         performSegue(withIdentifier: "RetToDet", sender: cell)
@@ -127,6 +115,7 @@ extension MoviesViewController:UISearchResultsUpdating,UISearchBarDelegate{
         }
         movieApiManager.getSearchResult(query: text)
     }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         movies=originalMovies
         tableView.reloadData()

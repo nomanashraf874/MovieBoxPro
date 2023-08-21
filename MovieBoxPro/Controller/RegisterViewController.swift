@@ -39,12 +39,13 @@ class RegisterViewController: UIViewController {
         userText.delegate=self
         emailText.delegate=self
     }
-    //Setting up TapImageView 2
+    
     @objc func imageTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             presentChoice()
         }
     }
+    
     @IBAction func registerPressed(_ sender: Any) {
         guard let email=emailText.text, let password=passwordText.text, let username = userText.text, let image = self.profileImage.image, !email.isEmpty, !password.isEmpty,!username.isEmpty else{
             regError(error: "Please fill in all Information")
@@ -75,6 +76,7 @@ class RegisterViewController: UIViewController {
             }
         }
     }
+    
     func regError(error: String) {
         let alert = UIAlertController(title: "ERROR", message:error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
@@ -82,7 +84,9 @@ class RegisterViewController: UIViewController {
     }
     
 }
+
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
     func presentChoice(){
         let choice = UIAlertController(title: "Profile Picture", message: "How would you like to select a picture?", preferredStyle: .actionSheet)
         choice.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -95,6 +99,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         present(choice, animated: true)
         
     }
+    
     func presentCamera(){
         let vc = UIImagePickerController()
         vc.sourceType = .camera
@@ -103,6 +108,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         present(vc, animated: true)
         
     }
+    
     func presentPhotoPicker(){
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
@@ -110,6 +116,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         vc.allowsEditing = true
         present(vc, animated: true)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         guard let selectedImage =  info[UIImagePickerController.InfoKey.editedImage] as? UIImage else{
@@ -118,12 +125,15 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         self.profileImage.image = selectedImage
         
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
     
 }
+
 extension RegisterViewController:UITextFieldDelegate{
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

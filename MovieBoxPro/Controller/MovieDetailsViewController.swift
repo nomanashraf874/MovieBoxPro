@@ -25,56 +25,75 @@ class MovieDetailsViewController: UIViewController{
     var commentViewController = CommentViewController()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Set the navigation bar to be transparent
         navigationController?.navigationBar.barTintColor = .clear
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(movie)
-        // Do any additional setup after loading the view.
-        //DatabaseManager.base.addLike(with: email, movie: movie)
-        SypnosisView.layer.cornerRadius = SypnosisView.frame.size.height / 5
+        setupTitleLabel()
+        setupSynopsisLabel()
+        setupPosterImage()
+        setupBackdropImage()
+        setupRelatedSection()
+        setupLikeButton()
+        setupSegmentedView()
+    }
+    
+    func setupTitleLabel(){
         titleLabel.text = movie["title"] as? String
         titleLabel.sizeToFit()
+    }
+    
+    func setupSynopsisLabel(){
+        SypnosisView.layer.cornerRadius = SypnosisView.frame.size.height / 5
         synopsisLabel.text = movie["overview"] as? String
         synopsisLabel.sizeToFit()
+    }
+    
+    func setupPosterImage(){
         let baseUrl = "https://image.tmdb.org/t/p/w185"
         let posterPath = movie["poster_path"] as! String
         let posterUrl = baseUrl + posterPath
         ImageDownloader.downloadImage(posterUrl) {
             image, urlString in
             if let imageObject = image {
-                // performing UI operation on main thread
                 DispatchQueue.main.async {
                     self.posterView.image = imageObject
                 }
             }
         }
+    }
+    
+    func setupBackdropImage(){
         let id = movie["id"] as! Int
         let backdropPath = movie["backdrop_path"] as! String
         let backdropUrl = "https://image.tmdb.org/t/p/w780" + backdropPath
         ImageDownloader.downloadImage(backdropUrl) {
             image, urlString in
             if let imageObject = image {
-                // performing UI operation on main thread
                 DispatchQueue.main.async {
                     self.backdropView.image = imageObject
                 }
             }
         }
+    }
+    
+    func setupRelatedSection(){
+        let id = movie["id"] as! Int
         let relatedActivitySectionVC = UserActivitySectionViewController(sectionType: .related,id: id)
         addChild(relatedActivitySectionVC)
         RelatedView.addSubview(relatedActivitySectionVC.view)
         relatedActivitySectionVC.view.frame = RelatedView.bounds
+    }
+    
+    func setupLikeButton(){
         DatabaseManager.base.verifyLike(email: email, movie: movie) { res in
             switch res{
             case .success(let ans):
                 if ans{
                     self.likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
-                    self.likeButton.isUserInteractionEnabled = false 
+                    self.likeButton.isUserInteractionEnabled = false
                 }else{
                     print("Not Liked Yet")
                 }
@@ -82,14 +101,15 @@ class MovieDetailsViewController: UIViewController{
                 print(error)
             }
         }
+    }
+    
+    func setupSegmentedView(){
         let brandLightPurple = UIColor(named: "BrandLightPurple")!
-
         let brandPurple = UIColor(named: "BrandPurple")!
-
         selectedSegment.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: brandLightPurple], for: .normal)
-
         selectedSegment.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: brandPurple], for: .selected)
     }
+    
     @IBAction func selectcontainer(_ sender: Any) {
         if selectedSegment.selectedSegmentIndex==0{
             RelatedView.isHidden=false
@@ -118,20 +138,14 @@ class MovieDetailsViewController: UIViewController{
     }
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "trailer"{
             let trailerViewController = segue.destination as! TrailerViewController
             trailerViewController.movieId = "\(movie["id"] as! Int)"
         }
         else{
-//            let tid = movie["id"] as! Int
             let commentViewController = segue.destination as! CommentViewController
             commentViewController.movie=movie
         }
-        print("Loading up the trailer")
-
-        
     }
 
 }

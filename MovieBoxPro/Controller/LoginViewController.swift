@@ -17,14 +17,18 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        passwordText.delegate=self
+        emailText.delegate=self
+        setupUI()
+    }
+    
+    func setupUI(){
         passwordView.layer.cornerRadius = passwordView.frame.size.height/2
         emailView.layer.cornerRadius = emailView.frame.size.height/2
-        passwordText.delegate=self
         passwordText.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BrandLightPurple")?.withAlphaComponent(0.5) ?? UIColor.gray])
-        emailText.delegate=self
         emailText.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BrandLightPurple")?.withAlphaComponent(0.5) ?? UIColor.gray])
-        // Do any additional setup after loading the view.
     }
+    
     @IBAction func LoginPressed(_ sender: Any) {
         guard let email=emailText.text, let password=passwordText.text, !email.isEmpty, !password.isEmpty else{
             loginError(error: "Please fill in all Information")
@@ -59,6 +63,7 @@ class LoginViewController: UIViewController {
         present(alert, animated: true)
     }
 }
+
 extension LoginViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

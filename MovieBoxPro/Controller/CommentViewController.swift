@@ -16,10 +16,9 @@ class CommentViewController: UITableViewController {
     var imageCache = NSCache<NSString, UIImage>()
     @IBOutlet var commentTextField: UITextField!
     var comments = [[String:Any]]()
-    //var delegate:SegueHandler?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    // Define a variable to keep track of the original frame of the view
     var originalFrame: CGRect?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: "CommentCell")
@@ -32,6 +31,7 @@ class CommentViewController: UITableViewController {
         commentTextField.attributedPlaceholder = NSAttributedString(string: "Comment", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "BrandLightPurple")?.withAlphaComponent(0.5) ?? UIColor.gray])
 
     }
+    
     func loadComments() {
         DatabaseManager.base.getComments(movie: movie["title"] as! String) { result in
             switch result {
@@ -100,7 +100,6 @@ extension CommentViewController{
         return comments.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
             let email = comments[indexPath.row]["email"] as! String
@@ -133,6 +132,7 @@ extension CommentViewController{
             cell.commentLabel.text = comment
             return cell
         }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CommentCell
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -155,8 +155,6 @@ extension CommentViewController:UITextFieldDelegate{
         newComment.content = textField.text!
         newComment.movieName = movie["title"] as? String ?? ""
         newComment.email = email
-        //self.saveComment()
-        //print(comments)
         return true
     }
 }

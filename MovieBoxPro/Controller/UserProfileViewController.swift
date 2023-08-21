@@ -42,7 +42,7 @@ class UserProfileViewController: UIViewController {
     
     // MARK: Actions
     @IBAction func signOutTapped(_ sender: Any) {
-        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "", message: "Do you want to Sign Out?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
             do{
                 try FirebaseAuth.Auth.auth().signOut()
@@ -54,49 +54,6 @@ class UserProfileViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert,animated: true)
     }
-    
-    /*
-     case .action:
-         return 28
-     case .adventure:
-         return 12
-     case .animation:
-         return 16
-     case .comedy:
-         return 35
-     case .crime:
-         return 80
-     case .documentary:
-         return 99
-     case .drama:
-         return 18
-     case .family:
-         return 10751
-     case .fantasy:
-         return 14
-     case .history:
-         return 36
-     case .horror:
-         return 27
-     case .music:
-         return 10402
-     case .mystery:
-         return 9648
-     case .romance:
-         return 10749
-     case .scienceFiction:
-         return 878
-     case .tvMovie:
-         return 10770
-     case .thriller:
-         return 53
-     case .war:
-         return 10752
-     case .western:
-         return 37
-     */
-    
-    
 }
 
 
@@ -104,8 +61,6 @@ class UserProfileViewController: UIViewController {
 // MARK: - View configurations methods
 extension UserProfileViewController {
     func setUpUIViews(email:String) {
-        // Sets CornerRadiuses
-        
         let needSpecificCornerRads = [generesActivityViewSection, commentsActivityViewSection]
         needSpecificCornerRads.forEach {
             $0?.clipsToBounds = true

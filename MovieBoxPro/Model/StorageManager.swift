@@ -31,7 +31,6 @@ class StorageMangager {
         })
     }
     
-    //test 1: check if only case reg
     public func getURL(for path: String, completionHandler: @escaping (URL) -> Void) {
         let reference = storage.child(path)
         

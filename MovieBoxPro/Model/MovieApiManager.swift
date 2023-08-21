@@ -21,24 +21,28 @@ struct MovieApiManager{
             completionHandler(res)
         }
     }
+    
     func getLatest(completionHandler: @escaping([[String: Any]])->Void) {
         let urlString="\(baseURL)now_playing\(apiKey)"
         performRequest(with: urlString){ res in
             completionHandler(res)
         }
     }
+    
     func getUpcoming(completionHandler: @escaping([[String: Any]])->Void) {
         let urlString="\(baseURL)upcoming\(apiKey)"
         performRequest(with: urlString){ res in
             completionHandler(res)
         }
     }
+    
     func getRelated(id:Int, completionHandler: @escaping([[String: Any]])->Void) {
         let urlString = "https://api.themoviedb.org/3/movie/\(id)/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
         performRequest(with: urlString){ res in
             completionHandler(res)
         }
     }
+    
     var delegate: MovieApiManagerDelegate?
     
     func getSearchResult(query: String) {
@@ -70,6 +74,7 @@ struct MovieApiManager{
         task.resume()
         
     }
+    
     func performRequest(with urlString: String,completionHandler: @escaping([[String: Any]])->Void)
     {
         print(urlString)
@@ -141,11 +146,12 @@ struct MovieApiManager{
             }
             task.resume()
         }
-        // notify the completion handler when all network requests have completed
+        
         group.notify(queue: DispatchQueue.main) {
             delegate?.load(self, moviesDict: allMovies)
         }
     }
+    
     func getMovieID(id: String,completionHandler: @escaping(String)->Void){
         let baseUrl = "https://api.themoviedb.org/3/movie/"
         let api = "\(id)/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -169,6 +175,7 @@ struct MovieApiManager{
 
 }
 extension Array {
+    
     func combinations(length: Int) -> [[Element]] {
         if length == 0 {
             return [[]]

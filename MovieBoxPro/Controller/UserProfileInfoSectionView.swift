@@ -39,14 +39,11 @@ class UserProfileInfoSectionView: UIView {
     }
     
     func setupViews(myEmail: String,viewEmail: String) {
-        print("IN")
         userPhotoImageView.layer.masksToBounds = true
         self.myEmail=myEmail
         self.viewEmail=viewEmail
         if viewEmail==myEmail || viewEmail == "" {
-            print("\(viewEmail) and \(myEmail)")
             followButton.isHidden = true
-            print("IN 1")
         }
         else{
             email = viewEmail
@@ -58,10 +55,8 @@ class UserProfileInfoSectionView: UIView {
                     if res{
                         self.followButton.setTitle("Following", for: .normal)
                         self.followButton.isEnabled=false
-                        print("IN 2")
                     } else{
                         self.followButton.isHidden=false
-                        print("Not Following")
                     }
                 }
             }
@@ -70,7 +65,7 @@ class UserProfileInfoSectionView: UIView {
             borderWidth: 3.0,
             borderColor: userNameLabel.textColor.cgColor)
         profilePictureHeader()
-        DatabaseManager.base.getFreinds(email: email) { (freinds,totalComments,totalLikes) in
+        DatabaseManager.base.getProfile(email: email) { (freinds,totalComments,totalLikes) in
             self.userLikedMoviesCountLabel.text="\(totalLikes)"
             self.userFollowingCountLabel.text="\(freinds.count)"
         }
@@ -78,9 +73,6 @@ class UserProfileInfoSectionView: UIView {
             self.userNameLabel.text=ret
         }
         userNicknameLabel.text=email
-        
-        
-        
     }
     func profilePictureHeader() {
         let imageFile = email+"_profilePicture.png"

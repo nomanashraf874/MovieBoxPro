@@ -15,11 +15,8 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUIViews()
-        // Do any additional setup after loading the view.
     }
     func setUpUIViews() {
-//        let needSmoothCorners = [popularActivityViewSection]
-//        needSmoothCorners.forEach { $0?.layer.cornerCurve = .continuous }
         let populaActivitySectionVC = UserActivitySectionViewController(sectionType: .popular)
         addChild(populaActivitySectionVC)
         popularActivityViewSection.addSubview(populaActivitySectionVC.view)
