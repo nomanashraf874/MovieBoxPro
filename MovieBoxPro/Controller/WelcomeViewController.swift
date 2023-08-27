@@ -27,7 +27,6 @@ class WelcomeViewController: UIViewController {
     }
     private func checkIfLoggedIn(){
         if FirebaseAuth.Auth.auth().currentUser != nil{
-            print("IN")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "already")
             self.present(vc,animated: true)

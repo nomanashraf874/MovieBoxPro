@@ -100,20 +100,15 @@ struct MovieApiManager{
     }
     func getMoviesByGenres(genres: [String]) {
         var allMovies: [[String:Any]] = []
-        // construct the list of all possible combinations of genres
         var genreCombinations = [[String]]()
         for i in 0...(genres.count) {
             genreCombinations += genres.combinations(length: i)
         }
         genreCombinations.reverse()
-        // create a dispatch group to track completion of all network requests
         let group = DispatchGroup()
-
-        // loop through each combination of genres and query the TMDb API
         for genreCombination in genreCombinations {
             let genreQueryString = genreCombination.joined(separator: "|")
             let urlString = "https://api.themoviedb.org/3/discover/movie\(apiKey)&sort_by=popularity.desc&with_genres=\(genreQueryString)"
-            //print(urlString)
             guard let url = URL(string: urlString) else {
                 continue
             }

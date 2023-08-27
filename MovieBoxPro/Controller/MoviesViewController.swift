@@ -13,7 +13,6 @@ class MoviesViewController: UIViewController {
     let searchController = UISearchController()
     let email = (UserDefaults.standard.value(forKey: "email") as? String)!
     var movies = [[String:Any]]()
-    var originalMovies = [[String:Any]]()
     var movieApiManager = MovieApiManager()
     var userPreference: [String] = []
     
@@ -64,9 +63,10 @@ class MoviesViewController: UIViewController {
 // MARK: -MovieApiManagerDelegate
 extension MoviesViewController: MovieApiManagerDelegate{
     func load(_ movieApiManager: MovieApiManager, moviesDict: [[String:Any]]){
-        self.movies=moviesDict
-        self.originalMovies=moviesDict;
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.movies=moviesDict
+            self.tableView.reloadData()
+        }
     }
 }
 // MARK: -TableViewController
@@ -117,8 +117,11 @@ extension MoviesViewController:UISearchResultsUpdating,UISearchBarDelegate{
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        movies=originalMovies
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            DatabaseManager.base.getPreferences(email: self.email) { res in
+                self.movieApiManager.getMoviesByGenres(genres: res)
+            }
+        }
     }
     
 }
