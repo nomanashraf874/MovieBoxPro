@@ -21,7 +21,7 @@ class MovieDetailsViewController: UIViewController{
     @IBOutlet var posterView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var synopsisLabel: UILabel!
-    var movie: [String:Any]!
+    var movie: Movie!
     var commentViewController = CommentViewController()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,19 +41,19 @@ class MovieDetailsViewController: UIViewController{
     }
     
     func setupTitleLabel(){
-        titleLabel.text = movie["title"] as? String
+        titleLabel.text = movie.title
         titleLabel.sizeToFit()
     }
     
     func setupSynopsisLabel(){
         SypnosisView.layer.cornerRadius = SypnosisView.frame.size.height / 5
-        synopsisLabel.text = movie["overview"] as? String
+        synopsisLabel.text = movie.overview
         synopsisLabel.sizeToFit()
     }
     
     func setupPosterImage(){
         let baseUrl = "https://image.tmdb.org/t/p/w185"
-        let posterPath = movie["poster_path"] as! String
+        let posterPath = movie.posterPath
         let posterUrl = baseUrl + posterPath
         ImageDownloader.downloadImage(posterUrl) {
             image, urlString in
@@ -66,8 +66,8 @@ class MovieDetailsViewController: UIViewController{
     }
     
     func setupBackdropImage(){
-        let id = movie["id"] as! Int
-        let backdropPath = movie["backdrop_path"] as! String
+        let id = movie.id
+        let backdropPath = movie.backdrop_path
         let backdropUrl = "https://image.tmdb.org/t/p/w780" + backdropPath
         ImageDownloader.downloadImage(backdropUrl) {
             image, urlString in
@@ -80,7 +80,7 @@ class MovieDetailsViewController: UIViewController{
     }
     
     func setupRelatedSection(){
-        let id = movie["id"] as! Int
+        let id = movie.id
         let relatedActivitySectionVC = UserActivitySectionViewController(sectionType: .related,id: id)
         addChild(relatedActivitySectionVC)
         RelatedView.addSubview(relatedActivitySectionVC.view)
@@ -88,7 +88,7 @@ class MovieDetailsViewController: UIViewController{
     }
     
     func setupLikeButton(){
-        DatabaseManager.base.verifyLike(email: email, movie: movie) { res in
+        DatabaseManager.base.verifyLike(email: email, movieName: movie.title) { res in
             switch res{
             case .success(let ans):
                 if ans{
@@ -124,23 +124,16 @@ class MovieDetailsViewController: UIViewController{
     @IBAction func trailerButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "trailer", sender: self)
     }
+    
     @IBAction func likeButtonPressed(_ sender: Any) {
         likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
         DatabaseManager.base.addLike(email: email, movie: movie)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "trailer"{
             let trailerViewController = segue.destination as! TrailerViewController
-            trailerViewController.movieId = "\(movie["id"] as! Int)"
+            trailerViewController.movieId = "\(movie.id)"
         }
         else{
             let commentViewController = segue.destination as! CommentViewController

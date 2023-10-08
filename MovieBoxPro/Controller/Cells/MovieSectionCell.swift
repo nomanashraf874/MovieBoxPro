@@ -12,9 +12,9 @@ class MovieSectionCell: UICollectionViewCell {
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     
-    func configureWithData(_ movieViewModel: MovieViewModel) {
+    func configureWithData(_ movieViewModel: Movie) {
         let baseUrl = "https://image.tmdb.org/t/p/w185"
-        let posterUrl = baseUrl + movieViewModel.ImageURL
+        let posterUrl = baseUrl + movieViewModel.posterPath
         ImageDownloader.downloadImage(posterUrl) {
             image, urlString in
             if let imageObject = image {

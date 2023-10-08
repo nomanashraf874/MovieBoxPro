@@ -34,18 +34,18 @@ class UserActivitySectionViewController: UIViewController {
     // MARK: Data
     private let sectionType: UserActivitySectionType
     private let id: Int?
-    var movieSeg:[[String:Any]] = []
+    var movieSeg:[Movie] = []
     var genreData: [MovieGenreType] = [
     
     ] {
         didSet { sectionCollectionView.reloadData()}
     }
     
-    private var movieData: [MovieViewModel] = [
+    private var movieData: [Movie] = [
     ]{
         didSet { sectionCollectionView.reloadData()}
     }
-    private var relatedData: [MovieViewModel] = [
+    private var relatedData: [Movie] = [
     ]{
         didSet { sectionCollectionView.reloadData()}
     }
@@ -123,9 +123,7 @@ class UserActivitySectionViewController: UIViewController {
                 case .success(let movies):
                     self.movieSeg=movies
                     for movie in movies{
-                        let posterPath = movie["poster_path"] as! String
-                        let title=movie["title"] as! String
-                        self.movieData.append(MovieViewModel(title: title, ImageURL: posterPath))
+                        self.movieData.append(movie)
                     }
 
                 case .failure(let err):
@@ -138,8 +136,8 @@ class UserActivitySectionViewController: UIViewController {
                 switch result{
                 case .success(let comments):
                     for comment in comments{
-                        let content = comment["content"] as! String
-                        let title=comment["title"] as! String
+                        let content = comment.content
+                        let title=comment.title
                         self.commentData.append(commentType(content: content, movieName: title))
                     }
                 case .failure(let err):
@@ -149,38 +147,22 @@ class UserActivitySectionViewController: UIViewController {
         case .popular:
             movieApiManager.getPopular(){ moviesDict in
                 self.movieSeg=moviesDict
-                for movie in moviesDict{
-                    let posterPath = movie["poster_path"] as! String
-                    let title=movie["title"] as! String
-                    self.movieData.append(MovieViewModel(title: title, ImageURL: posterPath))
-                }
+                self.movieData.append(contentsOf: moviesDict)
             }
         case .latest:
             movieApiManager.getLatest(){ moviesDict in
-                for movie in moviesDict{
-                    self.movieSeg=moviesDict
-                    let posterPath = movie["poster_path"] as! String
-                    let title=movie["title"] as! String
-                    self.movieData.append(MovieViewModel(title: title, ImageURL: posterPath))
-                }
+                self.movieSeg=moviesDict
+                self.movieData.append(contentsOf: moviesDict)
             }
         case .upcoming:
             movieApiManager.getUpcoming(){ moviesDict in
                 self.movieSeg=moviesDict
-                for movie in moviesDict{
-                    let posterPath = movie["poster_path"] as! String
-                    let title=movie["title"] as! String
-                    self.movieData.append(MovieViewModel(title: title, ImageURL: posterPath))
-                }
+                self.movieData.append(contentsOf: moviesDict)
             }
         case .related:
             movieApiManager.getRelated(id: id!){ moviesDict in
-                self.movieSeg=moviesDict 
-                for movie in moviesDict{
-                    let posterPath = movie["poster_path"] as? String ?? "/8k8RSMkmGR9Lp6FbKtithM3KIQb.jpg"
-                    let title=movie["title"] as! String
-                    self.movieData.append(MovieViewModel(title: title, ImageURL: posterPath))
-                }
+                self.movieSeg=moviesDict
+                self.movieData.append(contentsOf: moviesDict)
             }
         }
         
@@ -347,11 +329,9 @@ extension UserActivitySectionViewController {
             }
         }
         
-        // Sets delegate/datasource
         sectionCollectionView.delegate = self
         sectionCollectionView.dataSource = self
         
-        // Enables horizontal scroll and spacing
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         switch sectionType {

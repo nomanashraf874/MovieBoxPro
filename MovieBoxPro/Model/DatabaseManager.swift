@@ -58,10 +58,8 @@ class DatabaseManager {
         }
     }
     
-    public func addLike(email: String,movie:  [String : Any]){
-        guard let genres = movie["genre_ids"] as? [Any] else{
-            return
-        }
+    public func addLike(email: String,movie:  Movie){
+        let genres = movie.genreIds
         for genre in genres{
             let docRef=db.collection("Email").document(email).collection("UserPrefrences").document("\(genre)")
             docRef.updateData([
@@ -72,15 +70,24 @@ class DatabaseManager {
         doc.updateData([
             "TotalLikes": FieldValue.increment(Int64(1))
         ])
+        var movieDict: [String : Any] = [
+            "genre_ids": movie.genreIds,
+            "title": movie.title,
+            "content": movie.content,
+            "vote_average": movie.voteAverage,
+            "release_date": movie.releaseDate,
+            "poster_path": movie.posterPath,
+            "backdrop_path":movie.backdrop_path,
+            "overview": movie.overview,
+            "id": movie.id
+        ]
         db.collection("Email").document(email).updateData([
-            "Liked": FieldValue.arrayUnion([movie])
+            "Liked": FieldValue.arrayUnion([movieDict])
         ])
     }
     
-    public func addComment(email: String,content:String, movie:  [String : Any], completionHandler: @escaping(Bool)->Void){
-        guard let genres = movie["genre_ids"] as? [Any] else{
-            return
-        }
+    public func addComment(email: String,content:String, movie:  Movie, completionHandler: @escaping(Bool)->Void){
+        let genres = movie.genreIds
         for genre in genres{
             let docRef=db.collection("Email").document(email).collection("UserPrefrences").document("\(genre)")
             docRef.updateData([
@@ -92,7 +99,7 @@ class DatabaseManager {
             "content":content
             
         ]
-        let docRef = db.collection("Comments").document(movie["title"] as! String)
+        let docRef = db.collection("Comments").document(movie.title)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 docRef.updateData([
@@ -109,10 +116,20 @@ class DatabaseManager {
             }
             completionHandler(true)
         }
-        var movie = movie
-        movie["content"]=content
+        var movieDict: [String : Any] = [
+            "genre_ids": movie.genreIds,
+            "title": movie.title,
+            "content": movie.content,
+            "vote_average": movie.voteAverage,
+            "release_date": movie.releaseDate,
+            "poster_path": movie.posterPath,
+            "backdrop_path":movie.backdrop_path,
+            "overview": movie.overview,
+            "id": movie.id
+        ]
+        movieDict["content"]=content
         db.collection("Email").document(email).updateData([
-            "Commented": FieldValue.arrayUnion([movie])
+            "Commented": FieldValue.arrayUnion([movieDict])
         ])
         let doc = db.collection("Email").document(email)
         doc.updateData([
@@ -133,7 +150,7 @@ class DatabaseManager {
         ])
     }
     
-    public func verifyLike(email: String, movie: [String: Any], completionHandler: @escaping (Result<Bool, Error>) -> Void) {
+    public func verifyLike(email: String, movieName: String, completionHandler: @escaping (Result<Bool, Error>) -> Void) {
         let docRef = db.collection("Email").document(email)
         docRef.getDocument { (document, error) in
             if let error = error {
@@ -148,7 +165,7 @@ class DatabaseManager {
                 guard let title = dict["title"] as? String else {
                     return false
                 }
-                return title == movie["title"] as? String
+                return title == movieName
             }) {
                 completionHandler(.success(true))
             } else {
@@ -186,40 +203,33 @@ class DatabaseManager {
             } else if let error = error {
                 completionHandler(.failure(error))
             }
-            else{
-                print("Unknown Error in getComments")
-            }
         }
     }
     
-    public func getLiked(email:String, completionHandler: @escaping(Result<[[String: Any]], Error>)->Void){
+    public func getLiked(email:String, completionHandler: @escaping(Result<[Movie], Error>)->Void){
         var ret = [[String: Any]]()
         let docRef = db.collection("Email").document(email)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 ret = document.data()!["Liked"] as! [[String: Any]]
-                completionHandler(.success(ret))
+                let movies = ret.map { Movie(dictionary: $0) }
+                completionHandler(.success(movies))
             } else if let error = error {
                 completionHandler(.failure(error))
-            }
-            else{
-                print("Unknown Error in getLiked")
             }
         }
     }
     
-    public func getCommented(email:String, completionHandler: @escaping(Result<[[String: Any]], Error>)->Void){
+    public func getCommented(email:String, completionHandler: @escaping(Result<[Movie], Error>)->Void){
         var ret = [[String: Any]]()
         let docRef = db.collection("Email").document(email)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 ret = document.data()!["Commented"] as! [[String: Any]]
-                completionHandler(.success(ret))
+                let movies = ret.map { Movie(dictionary: $0) }
+                completionHandler(.success(movies))
             } else if let error = error {
                 completionHandler(.failure(error))
-            }
-            else{
-                print("Unknown Error in getCommented")
             }
         }
     }

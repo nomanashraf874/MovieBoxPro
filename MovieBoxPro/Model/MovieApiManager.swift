@@ -8,35 +8,37 @@
 import Foundation
 
 protocol MovieApiManagerDelegate{
-    func load(_ movieApiManager: MovieApiManager, moviesDict: [[String:Any]])
+    func load(_ movieApiManager: MovieApiManager, moviesDict: [Movie])
 }
 struct MovieApiManager{
     let baseURL="https://api.themoviedb.org/3/movie/"
     let apiKey="?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
-    var movies = [[String:Any]]()
+    var movies = [Movie]()
     let email = (UserDefaults.standard.value(forKey: "email") as? String)!
-    func getPopular(completionHandler: @escaping([[String: Any]])->Void) {
+    
+    func getPopular(completionHandler: @escaping([Movie])->Void) {
         let urlString="\(baseURL)popular\(apiKey)"
         performRequest(with: urlString){ res in
             completionHandler(res)
         }
     }
+
     
-    func getLatest(completionHandler: @escaping([[String: Any]])->Void) {
+    func getLatest(completionHandler: @escaping([Movie])->Void) {
         let urlString="\(baseURL)now_playing\(apiKey)"
         performRequest(with: urlString){ res in
             completionHandler(res)
         }
     }
     
-    func getUpcoming(completionHandler: @escaping([[String: Any]])->Void) {
+    func getUpcoming(completionHandler: @escaping([Movie])->Void) {
         let urlString="\(baseURL)upcoming\(apiKey)"
         performRequest(with: urlString){ res in
             completionHandler(res)
         }
     }
     
-    func getRelated(id:Int, completionHandler: @escaping([[String: Any]])->Void) {
+    func getRelated(id:Int, completionHandler: @escaping([Movie])->Void) {
         let urlString = "https://api.themoviedb.org/3/movie/\(id)/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
         performRequest(with: urlString){ res in
             completionHandler(res)
@@ -53,7 +55,6 @@ struct MovieApiManager{
 
     func performSearch(with urlString: String)
     {
-        //print(urlString)
         let url = URL(string: urlString)!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -63,36 +64,30 @@ struct MovieApiManager{
                 print(error.localizedDescription)
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                    
-                    // TODO: Get the array of movies
-                    // TODO: Store the movies in a property to use elsewhere
-                    // TODO: Reload your table view data
-                let dict=dataDictionary["results"] as! [[String:Any]]
-                delegate?.load(self, moviesDict: dict)
+                if let dict=dataDictionary["results"] as? [[String:Any]] {
+                    let movies = dict.map { Movie(dictionary: $0) }
+                    delegate?.load(self, moviesDict: movies)
+                }
             }
         }
         task.resume()
         
     }
     
-    func performRequest(with urlString: String,completionHandler: @escaping([[String: Any]])->Void)
+    func performRequest(with urlString: String,completionHandler: @escaping([Movie])->Void)
     {
-        print(urlString)
         let url = URL(string: urlString)!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) { (data, response, error) in
-                // This will run when the network request returns
             if let error = error {
                 print(error.localizedDescription)
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                    
-                    // TODO: Get the array of movies
-                    // TODO: Store the movies in a property to use elsewhere
-                    // TODO: Reload your table view data
-                let dict=dataDictionary["results"] as! [[String:Any]]
-                completionHandler(dict)
+                if let dict=dataDictionary["results"] as? [[String:Any]] {
+                    let movies = dict.map { Movie(dictionary: $0) }
+                    completionHandler(movies)
+                }
             }
         }
         task.resume()
@@ -143,7 +138,8 @@ struct MovieApiManager{
         }
         
         group.notify(queue: DispatchQueue.main) {
-            delegate?.load(self, moviesDict: allMovies)
+            let movies = allMovies.map { Movie(dictionary: $0) }
+            delegate?.load(self, moviesDict: movies)
         }
     }
     

@@ -12,7 +12,7 @@ class MoviesViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     let searchController = UISearchController()
     let email = (UserDefaults.standard.value(forKey: "email") as? String)!
-    var movies = [[String:Any]]()
+    var movies = [Movie]()
     var movieApiManager = MovieApiManager()
     var userPreference: [String] = []
     
@@ -62,7 +62,7 @@ class MoviesViewController: UIViewController {
 }
 // MARK: -MovieApiManagerDelegate
 extension MoviesViewController: MovieApiManagerDelegate{
-    func load(_ movieApiManager: MovieApiManager, moviesDict: [[String:Any]]){
+    func load(_ movieApiManager: MovieApiManager, moviesDict: [Movie]){
         DispatchQueue.main.async {
             self.movies=moviesDict
             self.tableView.reloadData()
@@ -79,16 +79,16 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
             
         let movie = movies[indexPath.row]
-        let title = movie["title"] as! String
-        let starCount = movie["vote_average"] as! Double
-        let rd = movie["release_date"] as? String ?? "Incoming"
+        let title = movie.title
+        let starCount = movie.voteAverage
+        let rd = movie.releaseDate
         cell.titleLabel.text = title
         cell.starLabel.text="\(Double(round(10 * (starCount/2)) / 10))"
         cell.Date.text="Release Date: \(rd)"
         
         
         let baseUrl = "https://image.tmdb.org/t/p/w185"
-        let posterPath = movie["poster_path"] as? String ?? "/sg7klpt1xwK1IJirBI9EHaqQwJ5.jpg"
+        let posterPath = movie.posterPath
         let posterUrl = baseUrl + posterPath
         ImageDownloader.downloadImage(posterUrl) {
             image, urlString in

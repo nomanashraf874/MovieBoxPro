@@ -12,7 +12,7 @@ class CommentViewController: UITableViewController {
     
     @IBOutlet var commentTableView: UITableView!
     let email = (UserDefaults.standard.value(forKey: "email") as? String)!
-    var movie : [String:Any] = [:]
+    var movie : Movie!
     var imageCache = NSCache<NSString, UIImage>()
     @IBOutlet var commentTextField: UITextField!
     var comments = [[String:Any]]()
@@ -33,7 +33,7 @@ class CommentViewController: UITableViewController {
     }
     
     func loadComments() {
-        DatabaseManager.base.getComments(movie: movie["title"] as! String) { result in
+        DatabaseManager.base.getComments(movie: movie.title) { result in
             switch result {
             case .success(let res):
                 DispatchQueue.global(qos: .background).async {
@@ -153,7 +153,7 @@ extension CommentViewController:UITextFieldDelegate{
         }
         let newComment = CommentEntity(context: context)
         newComment.content = textField.text!
-        newComment.movieName = movie["title"] as? String ?? ""
+        newComment.movieName = movie.title
         newComment.email = email
         return true
     }

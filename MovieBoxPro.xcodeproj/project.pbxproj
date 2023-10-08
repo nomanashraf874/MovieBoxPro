@@ -47,6 +47,7 @@
 		95EE4DB529C7850D00934E57 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE4DB429C7850D00934E57 /* User.swift */; };
 		95EE4DB729C787D900934E57 /* RegisterLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE4DB629C787D900934E57 /* RegisterLoginManager.swift */; };
 		95EE4DB929C7AA9500934E57 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE4DB829C7AA9500934E57 /* StorageManager.swift */; };
+		95F81E992AD210C800C91EB1 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F81E982AD210C800C91EB1 /* Movie.swift */; };
 		B2AC9DDF29FDE79F00380374 /* TrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AC9DDE29FDE79F00380374 /* TrailerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		95EE4DB629C787D900934E57 /* RegisterLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginManager.swift; sourceTree = "<group>"; };
 		95EE4DB829C7AA9500934E57 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		95EE4DFA29CCBB4600934E57 /* MovieBoxProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieBoxProTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		95F81E982AD210C800C91EB1 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		B2AC9DDE29FDE79F00380374 /* TrailerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 				95AC178329DCA7490003560A /* MovieApiManager.swift */,
 				95AC178729DCBF2F0003560A /* ImageDownloader.swift */,
 				95599FF429E33C7F0019443C /* ViewModels.swift */,
+				95F81E982AD210C800C91EB1 /* Movie.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				955EB34529DB635200160A5E /* UserActivitySectionViewController.swift in Sources */,
 				95EE4DB329C7841900934E57 /* DatabaseManager.swift in Sources */,
 				954723B429BFD49400407926 /* AppDelegate.swift in Sources */,
+				95F81E992AD210C800C91EB1 /* Movie.swift in Sources */,
 				95599FF529E33C7F0019443C /* ViewModels.swift in Sources */,
 				95AC178829DCBF2F0003560A /* ImageDownloader.swift in Sources */,
 				954723BE29BFD49400407926 /* MovieBoxPro.xcdatamodeld in Sources */,
